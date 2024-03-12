@@ -33,7 +33,7 @@ def predict():
     image = prepare_image(file_path)
     prediction = model.predict(image)
     class_index = np.argmax(prediction)
-    classes = {0: 'background', 1: 'beaver', 2: 'cat', 3: 'dog', 4: 'coyote', 5: 'squirrel', 6: 'rabbit', 7: 'wolf', 8: 'lynx', 9: 'bear', 10: 'puma', 11: 'rat', 12: 'raccoon', 13: 'fox'}
+    classes = {0: 'background', 1: 'Castor', 2: 'Chat', 3: 'Chien', 4: 'Coyote', 5: 'Ecureuil', 6: 'Lapin', 7: 'Loup', 8: 'Lynx', 9: 'Ours', 10: 'Puma', 11: 'Rat', 12: 'Raton-laveur', 13: 'Renard'}
     predicted_class = classes[class_index]
     
     # Supprimer le fichier temporaire
