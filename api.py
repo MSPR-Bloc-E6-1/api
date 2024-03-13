@@ -39,7 +39,7 @@ def predict():
     # Supprimer le fichier temporaire
     os.remove(file_path)  # Maintenant, cela devrait fonctionner sans erreur
     
-    return jsonify({predicted_class})
+    return predicted_class
 
 
 if __name__ == '__main__':
