@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify
 import numpy as np
+from flask_cors import CORS
+
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import tempfile
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 MODEL_PATH = './model.h5'
 model = load_model(MODEL_PATH)
