@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 import numpy as np
 from flask_cors import CORS
-
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import tempfile
@@ -10,7 +9,9 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-MODEL_PATH = './model.h5'
+
+CURRENT_FOLDER = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(CURRENT_FOLDER, 'model.h5')
 model = load_model(MODEL_PATH)
 
 def prepare_image(img_path, target_size=(128, 128)):
@@ -23,8 +24,14 @@ def prepare_image(img_path, target_size=(128, 128)):
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'file' not in request.files:
-        return jsonify({'error': 'Aucun fichier fourni.'}), 400
+        return jsonify({'error': 'Aucun fichier fourni.'}), 418
 
+    if len(request.files.getlist('file')) > 1:
+        return jsonify({'error': 'Trop de fichiers fournis.'}), 400
+    
+    if request.files['file'].content_type not in ['image/jpeg', 'image/png', 'image/jpg']:
+        return jsonify({'error': 'Le fichier doit être une image.'}), 400
+    
     file = request.files['file']
     # Créer un fichier temporaire pour l'image uploadée
     temp_dir = tempfile.gettempdir()
