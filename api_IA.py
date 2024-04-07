@@ -41,7 +41,7 @@ def predict():
     temp_file.close()  # S'assurer que le fichier est fermé
     
     image = prepare_image(file_path)
-    prediction = model.predict(image)
+    prediction = model.predict(image) 
     class_index = np.argmax(prediction)
     classes = {0: 'background', 1: 'Castor', 2: 'Chat', 3: 'Chien', 4: 'Coyote', 5: 'Ecureuil', 6: 'Lapin', 7: 'Loup', 8: 'Lynx', 9: 'Ours', 10: 'Puma', 11: 'Rat', 12: 'Raton-laveur', 13: 'Renard'}
     predicted_class = classes[class_index]
@@ -53,4 +53,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

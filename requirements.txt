@@ -1,6 +1,5 @@
 flask
 tensorflow
 numpy
-tempfile
 flask_cors
-mysql
+mysql-connector-python

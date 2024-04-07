@@ -61,4 +61,4 @@ def get_animal():
         return jsonify({"message": "Erreur lors de la connexion à la base de données"}), 500
 
 if __name__ == '__main__':
-    app.run(port=3001, debug=True)
+    app.run(port=3001, debug=False)
