@@ -55,3 +55,44 @@ Les informations sur l'animal, y compris l'image convertie en base64, sont rasse
 Enfin, la liste d'animaux est renvoyée en réponse à la requête, avec un code de statut 200 pour indiquer que la requête a réussi.  
 
 Si une erreur survient à tout moment du processus, un message d'erreur approprié est renvoyé avec le code de statut correspondant pour informer le client de l'erreur rencontrée.  
+
+&nbsp; 
+&nbsp; 
+# Docker
+## Installation et Configuration:
+Pour installer et configurer les différents services nécessaires à l'API, nous utilisons Docker et Docker Compose.  
+
+### Fichier docker-compose.yml:  
+Le fichier `docker-compose.yml` définit plusieurs services: MySQL pour la base de données, phpMyAdmin pour la gestion de la base de données, et deux services API distincts pour la reconnaissance d'images et les informations sur les animaux.
+
+### Dockerfile.api_bdd:
+Le Dockerfile `Dockerfile.api_bdd` est utilisé pour créer l'image du service `api_bdd`. Il configure l'environnement Python, copie les fichiers nécessaires, installe les dépendances, et expose le port 3001.
+
+### Dockerfile.api_IA:
+Le Dockerfile `Dockerfile.api_IA` est utilisé pour créer l'image du service `api_IA`. Il configure également l'environnement Python, copie les fichiers nécessaires, installe les dépendances, et expose le port 5000.
+
+
+## Fonctionnement:
+### Lancement des Services:
+Pour démarrer les services définis dans `docker-compose.yml`, utilisez la commande suivante dans le répertoire contenant le fichier docker-compose.yml:  
+```
+docker-compose up
+```
+Cette commande téléchargera les images nécessaires, construira les images locales, et démarrera les conteneurs pour chaque service.
+
+### Accès aux Services:
+- Base de Données MySQL: Accessible sur le port 3306.
+- phpMyAdmin: Accessible sur le port 8080 via l'URL http://localhost:8080.
+- API IA: Accessible sur le port 5000 via l'URL http://localhost:5000.
+- API BDD: Accessible sur le port 3001 via l'URL http://localhost:3001.  
+
+### Arrêt des Services:
+Pour arrêter et supprimer les conteneurs, les réseaux, et les volumes définis dans docker-compose.yml, utilisez la commande suivante:
+```
+docker-compose down
+```
+### Rebuild des Images:
+Si vous apportez des modifications aux Dockerfiles ou aux dépendances, vous pouvez reconstruire les images avec la commande:
+```
+docker-compose build
+```
