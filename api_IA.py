@@ -9,12 +9,12 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-
+# Mise à jour des chemins pour les fichiers du modèle
 CURRENT_FOLDER = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(CURRENT_FOLDER, 'model.h5')
+MODEL_PATH = os.path.join(CURRENT_FOLDER, 'weights', 'overfit', 'overfit.h5')
 model = load_model(MODEL_PATH)
 
-def prepare_image(img_path, target_size=(128, 128)):
+def prepare_image(img_path, target_size=(224, 224)):  # Mise à jour de la taille cible
     img = load_img(img_path, target_size=target_size)
     img_array = img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
@@ -43,14 +43,13 @@ def predict():
     image = prepare_image(file_path)
     prediction = model.predict(image) 
     class_index = np.argmax(prediction)
-    classes = {0: 'background', 1: 'Castor', 2: 'Chat', 3: 'Chien', 4: 'Coyote', 5: 'Ecureuil', 6: 'Lapin', 7: 'Loup', 8: 'Lynx', 9: 'Ours', 10: 'Puma', 11: 'Rat', 12: 'Raton-laveur', 13: 'Renard'}
+    classes = {0: 'background', 1: 'Ours', 2: 'Castor', 3: 'Chat', 4: 'Coyote', 5: 'Chien', 6: 'Renard', 7: 'Lynx', 8: 'Puma', 9: 'Lapin', 10: 'Raton-laveur', 11: 'Rat', 12: 'Ecureuil', 13: 'Loup'}
     predicted_class = classes[class_index]
     
     # Supprimer le fichier temporaire
     os.remove(file_path)  # Maintenant, cela devrait fonctionner sans erreur
     
-    return predicted_class
-
+    return jsonify({'predicted_class': predicted_class})
 
 if __name__ == '__main__':
     app.run(debug=False)
