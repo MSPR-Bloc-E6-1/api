@@ -11,7 +11,7 @@ CORS(app)
 
 # Mise à jour des chemins pour les fichiers du modèle
 CURRENT_FOLDER = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(CURRENT_FOLDER, 'overfit.h5')
+MODEL_PATH = os.path.join(CURRENT_FOLDER, 'model.h5')
 model = load_model(MODEL_PATH)
 
 def prepare_image(img_path, target_size=(224, 224)):  # Mise à jour de la taille cible
