@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wildlens
+    volumes:
+      - ./bdd.sql:/docker-entrypoint-initdb.d/bdd.sql
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8080:80"
+
+  api_ia:
+    build:
+      context: .
+      dockerfile: Dockerfile.api_IA
+    container_name: api_IA
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+
+  api_bdd:
+    build:
+      context: .
+      dockerfile: Dockerfile.api_bdd
+    container_name: api_bdd
+    volumes:
+      - .:/app
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mysql

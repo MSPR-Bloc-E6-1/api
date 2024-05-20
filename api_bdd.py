@@ -9,9 +9,9 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 def create_db_connection():
     try:
         connection = mysql.connector.connect(
-            host="localhost",
+            host="mysql",
             user="root",
-            password="",
+            password="rootpassword",
             database="wildlens"
         )
         return connection
@@ -61,4 +61,5 @@ def get_animal():
         return jsonify({"message": "Erreur lors de la connexion à la base de données"}), 500
 
 if __name__ == '__main__':
-    app.run(port=3001, debug=False)
+    app.run(host='0.0.0.0', port=3001, debug=False)
+
